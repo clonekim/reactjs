@@ -7,15 +7,18 @@ export default class Timer extends React.Component {
     this.state = {
       now: new Date()
     }
-
-    this.timer = this.timer.bind(this);
-    this.timer()
   }
 
-  timer() {
-    setInterval(() => {
-      this.setState({now: new Date()})
-    });
+  componentDidMount() {
+    this.timer = setInterval(() => this.tick(), 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timer);
+  }
+
+  tick() {
+    this.setState({now: new Date()})
   }
 
   render() {
